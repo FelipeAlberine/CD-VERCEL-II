@@ -5,42 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>🤓☝️ Mega Site Doido: Plataforma + Cassino + Diversão ☝️🤓</title>
 <style>
-  /* Reset */
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
+  /* Estilos básicos */
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #120f2e, #3b185f);
     color: #eee;
+    font-family: Arial, sans-serif;
+    margin: 0; padding: 0;
+    display: flex; flex-direction: column; align-items: center;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    user-select: none;
   }
   header {
     background: #27154a;
     width: 100%;
-    padding: 15px 20px;
-    box-shadow: 0 0 15px #fff4;
     text-align: center;
+    padding: 15px;
+    box-shadow: 0 0 15px #fff4;
   }
   header h1 {
-    font-family: 'Press Start 2P', cursive;
+    margin: 0;
     color: #aaffff;
-    font-size: 1.8rem;
-    letter-spacing: 2px;
-    text-shadow: 0 0 12px #00ffff;
   }
   main {
-    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
     max-width: 1200px;
     padding: 20px;
-    display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
-    justify-content: center;
+    width: 100%;
   }
   section {
     background: #2e1e5f;
@@ -49,125 +41,76 @@
     box-shadow: 0 0 15px #4b3a90;
     flex: 1 1 550px;
     min-width: 320px;
-    color: #c0c0ff;
   }
-  section h2 {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1.3rem;
+  h2 {
     color: #66ffff;
-    margin-bottom: 12px;
-    text-shadow: 0 0 8px #33ffff;
+    margin-bottom: 15px;
+    text-align: center;
   }
-  /* Botões padrão */
+  /* Botões */
   button {
     background: linear-gradient(45deg, #66ffff, #3366ff);
     border: none;
     border-radius: 10px;
-    color: #120f2e;
-    font-weight: 700;
     padding: 12px 25px;
+    color: #120f2e;
+    font-weight: bold;
     cursor: pointer;
     font-size: 1rem;
-    transition: all 0.3s ease;
-    user-select: none;
-    margin: 6px 4px;
+    transition: 0.3s ease;
+    margin: 15px auto;
+    display: block;
   }
   button:hover {
     background: linear-gradient(45deg, #99ffff, #5599ff);
     box-shadow: 0 0 10px #99ffff;
   }
-  /* Input estilo */
-  input[type="text"], input[type="number"] {
-    padding: 10px 15px;
-    border-radius: 10px;
-    border: 2px solid #66ffff;
-    background: #120f2e;
-    color: #aaffff;
-    font-size: 1rem;
+  /* Plataforma */
+  #gameContainer {
+    width: 540px;
+    height: 320px;
+    background: #111136;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #5599ff;
+    position: relative;
+    overflow: hidden;
+  }
+  #gameCanvas {
+    display: block;
     width: 100%;
-    max-width: 260px;
-    margin: 8px 0 15px;
-    outline: none;
+    height: 100%;
+    background: linear-gradient(to top, #222244, #223366);
+    border-radius: 15px;
   }
-  input::placeholder {
-    color: #5599ff;
-  }
-  /* Mensagens */
-  .message {
-    background: #121040cc;
-    border-radius: 10px;
-    padding: 15px;
-    margin-top: 10px;
-    min-height: 50px;
-    font-size: 1rem;
-    color: #99ffff;
-    user-select: text;
+  #scoreboard {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #99ccff;
   }
   /* Cassino */
   #roulette {
+    position: relative;
     width: 280px;
     height: 280px;
-    margin: 20px auto;
+    margin: 0 auto;
     border-radius: 50%;
     border: 12px solid #66ffff;
-    position: relative;
-    overflow: hidden;
     box-shadow: 0 0 20px #66ffffaa inset;
   }
   #rouletteCanvas {
     width: 280px;
     height: 280px;
     display: block;
-  }
-  #spinBtn {
-    display: block;
-    margin: 15px auto;
-  }
-  /* Plataforma */
-  #gameContainer {
-    width: 100%;
-    max-width: 540px;
-    height: 320px;
-    background: #111136;
-    border-radius: 15px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 20px #5599ff;
-  }
-  #gameCanvas {
-    background: linear-gradient(to top, #222244, #223366);
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  #scoreboard {
-    margin-top: 10px;
-    font-family: monospace;
-    color: #99ccff;
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-  /* Som */
-  #soundToggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #4466ccdd;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    color: #bbddff;
-    font-size: 26px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 10px #66aaffaa;
-    transition: background 0.3s ease;
-    user-select: none;
   }
-  #soundToggle:hover {
-    background: #6688ffdd;
+  #casinoMessage {
+    margin-top: 12px;
+    color: #99ffff;
+    min-height: 40px;
+    text-align: center;
+    font-weight: bold;
   }
   /* Rodapé */
   footer {
@@ -184,59 +127,36 @@
   <h1>🤓☝️ Mega Site Doido: Plataforma + Cassino + Diversão ☝️🤓</h1>
 </header>
 
-<div id="soundToggle" title="Ligar/Desligar som">🔈</div>
-
 <main>
-  <!-- Seção do Jogo de Plataforma -->
-  <section id="platformerSection" aria-label="Jogo de plataforma">
+
+  <section aria-label="Jogo de plataforma">
     <h2>🕹️ Jogo de Plataforma Simples</h2>
     <div id="gameContainer" aria-label="Canvas do jogo de plataforma">
       <canvas id="gameCanvas" width="540" height="320"></canvas>
     </div>
     <div id="scoreboard">Pontuação: 0</div>
-    <p style="font-size: 0.8rem; color: #99ccff; margin-top:10px;">Use as setas ← → para mover e espaço para pular</p>
+    <p style="text-align:center; font-size:0.9rem; color:#99ccff;">Use ← e → para andar, espaço para pular</p>
   </section>
 
-  <!-- Seção do Cassino -->
-  <section id="casinoSection" aria-label="Cassino de brincadeira">
+  <section aria-label="Cassino de brincadeira">
     <h2>🎰 Cassino: Roleta da Sorte</h2>
     <div id="roulette" role="img" aria-label="Roleta de cassino">
       <canvas id="rouletteCanvas" width="280" height="280"></canvas>
     </div>
-    <button id="spinBtn">Girar Roleta!</button>
-    <div id="casinoMessage" class="message" aria-live="polite" aria-atomic="true">Clique em "Girar Roleta!" para começar a jogar.</div>
+    <button id="spinBtn" aria-label="Botão para girar a roleta">Girar Roleta!</button>
+    <div id="casinoMessage" aria-live="polite" aria-atomic="true">
+      Clique em "Girar Roleta!" para tentar a sorte.
+    </div>
   </section>
 
 </main>
 
 <footer>
-  Desenvolvido com 🤓☝️ por você e seu assistente doido! <br> Divirta-se e jogue com responsabilidade.
+  Desenvolvido com 🤓☝️ por você e seu assistente doido! Divirta-se!
 </footer>
 
 <script>
-  // Som ambiente toggle
-  const soundToggle = document.getElementById('soundToggle');
-  let soundOn = false;
-  let audioCtx, oscillator;
-
-  soundToggle.addEventListener('click', () => {
-    if (!soundOn) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      oscillator = audioCtx.createOscillator();
-      oscillator.type = 'triangle';
-      oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
-      oscillator.connect(audioCtx.destination);
-      oscillator.start();
-      soundToggle.textContent = '🔊';
-    } else {
-      oscillator.stop();
-      audioCtx.close();
-      soundToggle.textContent = '🔈';
-    }
-    soundOn = !soundOn;
-  });
-
-  /* ====== JOGO DE PLATAFORMA SIMPLES ====== */
+  // --- Jogo de plataforma ---
   (() => {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
@@ -283,10 +203,133 @@
       up: false
     };
 
-    // Pontuação e scoreboard
     const scoreboard = document.getElementById('scoreboard');
 
-    // Desenha jogador
     function drawPlayer() {
       ctx.fillStyle = player.color;
-      ctx.fillRect(player.x, player.y,
+      ctx.fillRect(player.x, player.y, player.width, player.height);
+    }
+
+    function drawPlatforms() {
+      ctx.fillStyle = '#5566ff';
+      platforms.forEach(p => {
+        ctx.fillRect(p.x, p.y, p.width, p.height);
+      });
+    }
+
+    function drawCoins() {
+      coins.forEach(c => {
+        if (!c.collected) {
+          ctx.beginPath();
+          ctx.fillStyle = '#ffd700';
+          ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = '#b38f00';
+          ctx.stroke();
+        }
+      });
+    }
+
+    function updatePlayer() {
+      // Horizontal movement
+      if (keys.left) {
+        player.dx = -player.speed;
+      } else if (keys.right) {
+        player.dx = player.speed;
+      } else {
+        player.dx *= friction;
+        if (Math.abs(player.dx) < 0.1) player.dx = 0;
+      }
+
+      // Saltar
+      if (keys.up && !player.jumping) {
+        player.dy = -13;
+        player.jumping = true;
+        player.onGround = false;
+      }
+
+      player.dy += gravity;
+
+      player.x += player.dx;
+      player.y += player.dy;
+
+      // Limites da tela
+      if (player.x < 0) player.x = 0;
+      if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
+      if (player.y + player.height > canvas.height) {
+        player.y = canvas.height - player.height;
+        player.dy = 0;
+        player.jumping = false;
+        player.onGround = true;
+      }
+
+      // Colisão com plataformas
+      platforms.forEach(p => {
+        if (
+          player.x < p.x + p.width &&
+          player.x + player.width > p.x &&
+          player.y + player.height > p.y &&
+          player.y + player.height < p.y + p.height + 10 &&
+          player.dy >= 0
+        ) {
+          player.y = p.y - player.height;
+          player.dy = 0;
+          player.jumping = false;
+          player.onGround = true;
+        }
+      });
+
+      // Coletar moedas
+      coins.forEach(c => {
+        if (!c.collected) {
+          const distX = player.x + player.width / 2 - c.x;
+          const distY = player.y + player.height / 2 - c.y;
+          const dist = Math.sqrt(distX * distX + distY * distY);
+          if (dist < c.radius + player.width / 2) {
+            c.collected = true;
+            player.score++;
+            scoreboard.textContent = 'Pontuação: ' + player.score;
+            playCoinSound();
+          }
+        }
+      });
+    }
+
+    function clear() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function gameLoop() {
+      clear();
+      updatePlayer();
+      drawPlatforms();
+      drawPlayer();
+      drawCoins();
+      requestAnimationFrame(gameLoop);
+    }
+
+    // Controles teclado
+    window.addEventListener('keydown', e => {
+      if (e.code === 'ArrowLeft') keys.left = true;
+      if (e.code === 'ArrowRight') keys.right = true;
+      if (e.code === 'Space' || e.code === 'ArrowUp') keys.up = true;
+    });
+    window.addEventListener('keyup', e => {
+      if (e.code === 'ArrowLeft') keys.left = false;
+      if (e.code === 'ArrowRight') keys.right = false;
+      if (e.code === 'Space' || e.code === 'ArrowUp') keys.up = false;
+    });
+
+    function playCoinSound() {
+      const ctxSnd = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctxSnd.createOscillator();
+      const g = ctxSnd.createGain();
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(800, ctxSnd.currentTime);
+      g.gain.setValueAtTime(0.1, ctxSnd.currentTime);
+      o.connect(g);
+      g.connect(ctxSnd.destination);
+      o.start();
+      o.frequency.exponentialRampToValueAtTime(1500, ctxSnd.currentTime + 0.1);
+      g.gain.exponentialRampToValueAtTime(0.01, ctxSnd.currentTime + 0.1);
+      o.stop(ctx

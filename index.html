@@ -1,152 +1,248 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Desafio Maluco 🎲</title>
-    <style>
-        body {
-            background: linear-gradient(135deg, #ff0066, #6600ff);
-            color: white;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px;
-            min-height: 100vh;
-            margin: 0;
-        }
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 5px black;
-        }
-        button {
-            padding: 15px 25px;
-            margin: 10px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            background: #00ffcc;
-            color: #222;
-            box-shadow: 0 4px 8px #00cca8;
-            transition: transform 0.3s ease;
-        }
-        button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 12px #00cca8;
-        }
-        #message {
-            margin-top: 30px;
-            font-size: 1.5rem;
-            min-height: 60px;
-            max-width: 600px;
-            text-align: center;
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            user-select: none;
-        }
-        #inputBox {
-            margin-top: 20px;
-            padding: 10px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            border: none;
-            outline: none;
-            width: 200px;
-            text-align: center;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>🤓☝️ O Desafio Mais Doido do Universo ☝️🤓</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  body {
+    background: radial-gradient(circle at center, #220044, #000022);
+    color: #0ff;
+    font-family: 'Press Start 2P', monospace, monospace;
+    margin: 0;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    user-select: none;
+    overflow-x: hidden;
+  }
+  h1 {
+    font-size: 2.8rem;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ccff;
+    margin-bottom: 10px;
+  }
+  #message {
+    margin: 20px 0 40px;
+    padding: 20px;
+    max-width: 700px;
+    background: rgba(0,255,255,0.1);
+    border: 2px solid #00ffff;
+    border-radius: 20px;
+    min-height: 100px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+  button {
+    background: linear-gradient(45deg, #00ffee, #0099ff);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #00ffff;
+    color: #000022;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 10px;
+    padding: 18px 32px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    position: relative;
+  }
+  button:hover {
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 0 0 20px #00ffff;
+  }
+  #inputBox {
+    margin-top: 15px;
+    padding: 15px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    border: 3px solid #00ffff;
+    width: 250px;
+    text-align: center;
+    outline: none;
+    background-color: #001122;
+    color: #00ffff;
+  }
+  #inputBox::placeholder {
+    color: #00cccc;
+  }
+  /* Pegadinha: o botão que fica dançando loucamente */
+  @keyframes dance {
+    0%, 100% { transform: translate(0, 0) rotate(0); }
+    20% { transform: translate(-5px, 5px) rotate(-10deg); }
+    40% { transform: translate(5px, -5px) rotate(10deg); }
+    60% { transform: translate(-5px, -5px) rotate(-10deg); }
+    80% { transform: translate(5px, 5px) rotate(10deg); }
+  }
+</style>
 </head>
 <body>
 
-    <h1>🧩 O Desafio Maluco</h1>
-    <button id="btn1">Clique Aqui - Desafio 1</button>
-    <button id="btn2">Clique Aqui - Desafio 2</button>
-    <button id="btn3">Clique Aqui - Desafio 3</button>
+<h1>🤓☝️ O Desafio Mais Doido do Universo ☝️🤓</h1>
 
-    <div id="message">Escolha um desafio para começar!</div>
+<div>
+  <button id="btn1">🤓☝️ Botão Fugitivo ☝️🤓</button>
+  <button id="btn2">🤓☝️ Palavra Secreta ☝️🤓</button>
+  <button id="btn3">🤓☝️ O Não Botão ☝️🤓</button>
+  <button id="btn4">🤓☝️ Botão Dançante ☝️🤓</button>
+  <button id="btn5">🤓☝️ O Quiz Maluco ☝️🤓</button>
+</div>
 
-    <input type="text" id="inputBox" placeholder="Responda aqui" style="display:none"/>
+<div id="message">Escolha um desafio para começar... 🤓☝️</div>
 
-    <script>
-        const btn1 = document.getElementById('btn1');
-        const btn2 = document.getElementById('btn2');
-        const btn3 = document.getElementById('btn3');
-        const message = document.getElementById('message');
-        const inputBox = document.getElementById('inputBox');
+<input type="text" id="inputBox" placeholder="Digite sua resposta aqui..." style="display:none" />
 
-        // Pegadinha 1: Clicando no botão, ele muda de lugar
-        btn1.addEventListener('mouseenter', () => {
-            const x = Math.random() * (window.innerWidth - btn1.clientWidth);
-            const y = Math.random() * (window.innerHeight - btn1.clientHeight);
-            btn1.style.position = 'absolute';
-            btn1.style.left = x + 'px';
-            btn1.style.top = y + 'px';
-            message.textContent = "Você tentou clicar, mas eu me escondi! Tente novamente...";
-        });
+<script>
+  const btn1 = document.getElementById('btn1');
+  const btn2 = document.getElementById('btn2');
+  const btn3 = document.getElementById('btn3');
+  const btn4 = document.getElementById('btn4');
+  const btn5 = document.getElementById('btn5');
+  const message = document.getElementById('message');
+  const inputBox = document.getElementById('inputBox');
 
-        btn1.addEventListener('click', () => {
-            alert('Você conseguiu me pegar! Mas só um pouco...');
-            message.textContent = "Essa foi fácil demais, vamos para o próximo desafio!";
-            resetBtn1();
-        });
+  // --- BOTÃO 1: Fugitivo com efeito zigue-zague ☝️🤓
+  btn1.addEventListener('mouseenter', () => {
+    const x = Math.random() * (window.innerWidth - btn1.clientWidth);
+    const y = Math.random() * (window.innerHeight - btn1.clientHeight);
+    btn1.style.position = 'absolute';
+    btn1.style.left = x + 'px';
+    btn1.style.top = y + 'px';
+    message.textContent = "Tente me pegar, mas eu sou rápido demais! 🤓☝️";
+  });
+  btn1.addEventListener('click', () => {
+    alert("Você me pegou! Mas só por um instante... 🤓☝️");
+    message.textContent = "Botão Fugitivo dominado! Escolha outro desafio!";
+    btn1.style.position = '';
+    btn1.style.left = '';
+    btn1.style.top = '';
+  });
 
-        function resetBtn1() {
-            btn1.style.position = '';
-            btn1.style.left = '';
-            btn1.style.top = '';
+  // --- BOTÃO 2: Palavra secreta invertida ☝️🤓
+  btn2.addEventListener('click', () => {
+    message.textContent = "Digite a palavra secreta 🤓☝️ (Dica: 'chatgpt' invertido)";
+    inputBox.style.display = 'block';
+    inputBox.value = '';
+    inputBox.focus();
+
+    inputBox.onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        const resp = inputBox.value.toLowerCase().trim();
+        if (resp === 'tpgtahc') {
+          message.textContent = "Exato! Você conhece o segredo dos 🤓☝️!";
+          inputBox.style.display = 'none';
+        } else {
+          message.textContent = "Não é isso... Pense mais, você consegue! 🤓☝️";
         }
+      }
+    }
+  });
 
-        // Desafio 2: Pergunta com resposta oculta
-        btn2.addEventListener('click', () => {
-            message.textContent = "Qual é a palavra secreta? Dica: é 'chatgpt' invertido.";
-            inputBox.style.display = 'block';
-            inputBox.value = '';
-            inputBox.focus();
+  // --- BOTÃO 3: O não botão (psicológico) ☝️🤓
+  btn3.addEventListener('click', () => {
+    message.textContent = "Não clique neste botão... ou clique? Você decide! 🤓☝️";
+    let clicked = false;
+    let timer = setTimeout(() => {
+      if (!clicked) {
+        message.textContent = "Você não clicou, mas já clicou mentalmente! 🤯🤓☝️";
+        alert("Pegadinha da mente! Você perdeu a batalha do pensamento! 🤓☝️");
+      }
+    }, 5000);
 
-            inputBox.onkeydown = (e) => {
-                if (e.key === 'Enter') {
-                    const resposta = inputBox.value.toLowerCase().trim();
-                    if (resposta === 'tpgtahc') {
-                        message.textContent = "Parabéns! Você acertou a palavra secreta! Próximo desafio...";
-                        inputBox.style.display = 'none';
-                    } else {
-                        message.textContent = "Não é isso... Tente novamente!";
-                    }
-                }
-            }
-        });
+    btn3.onclick = () => {
+      clicked = true;
+      clearTimeout(timer);
+      message.textContent = "Você clicou! Decisão corajosa! 🤓☝️";
+      btn3.onclick = null;
+    };
+  });
 
-        // Desafio 3: O desafio do "clicar no botão sem clicar"
-        btn3.addEventListener('click', () => {
-            message.textContent = "Não clique neste botão... ou clique? Decida rápido!";
-            let clicked = false;
-            let timer = setTimeout(() => {
-                if (!clicked) {
-                    message.textContent = "Você não clicou! Mas já clicou... confuso, né?";
-                    alert("Pegadinha! Você já clicou quando pensou em clicar.");
-                }
-            }, 5000);
+  // --- BOTÃO 4: Botão dançante maluco ☝️🤓
+  btn4.addEventListener('mouseenter', () => {
+    btn4.style.animation = 'dance 0.5s infinite';
+    message.textContent = "Olha eu dançando! Tente me clicar se conseguir! 🤓☝️";
+  });
+  btn4.addEventListener('mouseleave', () => {
+    btn4.style.animation = '';
+    message.textContent = "Sem dança por enquanto... Experimente outro botão! 🤓☝️";
+  });
+  btn4.addEventListener('click', () => {
+    alert("Você pegou o botão dançante! Você é demais! 🤓☝️");
+    message.textContent = "Botão dançante conquistado! Vamos lá para o próximo! 🤓☝️";
+    btn4.style.animation = '';
+  });
 
-            btn3.onclick = () => {
-                clicked = true;
-                clearTimeout(timer);
-                message.textContent = "Você clicou! Parabéns por tomar a decisão! Isso é um desafio? Talvez...";
-                btn3.onclick = null; // desativa pra não repetir
-            };
-        });
+  // --- BOTÃO 5: Quiz maluco com perguntas randomizadas ☝️🤓
+  const quiz = [
+    {q: "Quanto é 9 + 10? 🤓☝️", a: "19"},
+    {q: "Qual é a cor do céu em um dia claro? 🤓☝️", a: "azul"},
+    {q: "Qual animal mia? 🤓☝️", a: "gato"},
+    {q: "Qual é o resultado de 2 elevado a 3? 🤓☝️", a: "8"},
+    {q: "Qual é a palavra secreta para desbloquear? 🤓☝️ (Dica: É 'openai')", a: "openai"}
+  ];
+  let currentQuizIndex = null;
 
-        // Pegadinha extra: tecla secreta para mensagem especial
-        document.addEventListener('keydown', (e) => {
-            if (e.key.toLowerCase() === 'z' && e.ctrlKey) {
-                alert('Você descobriu o segredo! Código maluco ativado!');
-                message.textContent = "🎉 Você desbloqueou a mensagem secreta: Nunca confie em tudo que vê na internet! 🎉";
-            }
-        });
-    </script>
+  btn5.addEventListener('click', () => {
+    currentQuizIndex = Math.floor(Math.random() * quiz.length);
+    message.textContent = quiz[currentQuizIndex].q;
+    inputBox.style.display = 'block';
+    inputBox.value = '';
+    inputBox.focus();
+
+    inputBox.onkeydown = (e) => {
+      if (e.key === 'Enter') {
+        const resposta = inputBox.value.toLowerCase().trim();
+        if (resposta === quiz[currentQuizIndex].a.toLowerCase()) {
+          message.textContent = "Resposta correta! Parabéns, mestre dos 🤓☝️!";
+          inputBox.style.display = 'none';
+        } else {
+          message.textContent = "Resposta errada... Tente outra vez! 🤓☝️";
+        }
+      }
+    }
+  });
+
+  // --- Pegadinha extra: CTRL+Z ativa mensagem secreta 🤓☝️
+  document.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() === 'z' && e.ctrlKey) {
+      alert('🤓☝️ Você descobriu o segredo do universo dos botões! 🤓☝️');
+      message.textContent = "🎉 Mensagem secreta desbloqueada: Nunca subestime um botão! 🤓☝️🎉";
+    }
+  });
+
+  // --- Pegadinha extra 2: Clicar rápido 5 vezes num botão qualquer...
+  let clickCount = 0;
+  document.body.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
+      clickCount++;
+      if (clickCount === 5) {
+        alert("Você clicou rápido demais! Tente devagar, 🤓☝️!");
+        clickCount = 0;
+      }
+      setTimeout(() => { clickCount = 0; }, 2000); // reset após 2s sem clique
+    }
+  });
+
+  // --- Pegadinha maluca final: Muda título da aba loucamente
+  let titles = [
+    "🤓☝️ Você é louco? ☝️🤓",
+    "👀 Pegadinha vindo! 👀",
+    "🤯 Cuidado! 🤯",
+    "🚨 ALERTA DE DESAFIO 🚨",
+    "☝️ Clique em algum botão! ☝️",
+    "🤓 O Desafio Continua... 🤓"
+  ];
+  let i = 0;
+  setInterval(() => {
+    document.title = titles[i];
+    i = (i + 1) % titles.length;
+  }, 3000);
+
+</script>
 
 </body>
 </html>

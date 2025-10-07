@@ -1,335 +1,120 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>🤓☝️ Mega Site Doido: Plataforma + Cassino + Diversão ☝️🤓</title>
-<style>
-  /* Estilos básicos */
-  body {
-    background: linear-gradient(135deg, #120f2e, #3b185f);
-    color: #eee;
-    font-family: Arial, sans-serif;
-    margin: 0; padding: 0;
-    display: flex; flex-direction: column; align-items: center;
-    min-height: 100vh;
-  }
-  header {
-    background: #27154a;
-    width: 100%;
-    text-align: center;
-    padding: 15px;
-    box-shadow: 0 0 15px #fff4;
-  }
-  header h1 {
-    margin: 0;
-    color: #aaffff;
-  }
-  main {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    justify-content: center;
-    max-width: 1200px;
-    padding: 20px;
-    width: 100%;
-  }
-  section {
-    background: #2e1e5f;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 0 15px #4b3a90;
-    flex: 1 1 550px;
-    min-width: 320px;
-  }
-  h2 {
-    color: #66ffff;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  /* Botões */
-  button {
-    background: linear-gradient(45deg, #66ffff, #3366ff);
-    border: none;
-    border-radius: 10px;
-    padding: 12px 25px;
-    color: #120f2e;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: 0.3s ease;
-    margin: 15px auto;
-    display: block;
-  }
-  button:hover {
-    background: linear-gradient(45deg, #99ffff, #5599ff);
-    box-shadow: 0 0 10px #99ffff;
-  }
-  /* Plataforma */
-  #gameContainer {
-    width: 540px;
-    height: 320px;
-    background: #111136;
-    border-radius: 15px;
-    box-shadow: 0 0 20px #5599ff;
-    position: relative;
-    overflow: hidden;
-  }
-  #gameCanvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, #222244, #223366);
-    border-radius: 15px;
-  }
-  #scoreboard {
-    text-align: center;
-    margin-top: 12px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #99ccff;
-  }
-  /* Cassino */
-  #roulette {
-    position: relative;
-    width: 280px;
-    height: 280px;
-    margin: 0 auto;
-    border-radius: 50%;
-    border: 12px solid #66ffff;
-    box-shadow: 0 0 20px #66ffffaa inset;
-  }
-  #rouletteCanvas {
-    width: 280px;
-    height: 280px;
-    display: block;
-    border-radius: 50%;
-  }
-  #casinoMessage {
-    margin-top: 12px;
-    color: #99ffff;
-    min-height: 40px;
-    text-align: center;
-    font-weight: bold;
-  }
-  /* Rodapé */
-  footer {
-    margin: 40px 0 20px;
-    color: #6666aa;
-    font-size: 0.9rem;
-    text-align: center;
-  }
-</style>
-</head>
-<body>
-
-<header>
-  <h1>🤓☝️ Mega Site Doido: Plataforma + Cassino + Diversão ☝️🤓</h1>
-</header>
-
-<main>
-
-  <section aria-label="Jogo de plataforma">
-    <h2>🕹️ Jogo de Plataforma Simples</h2>
-    <div id="gameContainer" aria-label="Canvas do jogo de plataforma">
-      <canvas id="gameCanvas" width="540" height="320"></canvas>
-    </div>
-    <div id="scoreboard">Pontuação: 0</div>
-    <p style="text-align:center; font-size:0.9rem; color:#99ccff;">Use ← e → para andar, espaço para pular</p>
-  </section>
-
-  <section aria-label="Cassino de brincadeira">
-    <h2>🎰 Cassino: Roleta da Sorte</h2>
-    <div id="roulette" role="img" aria-label="Roleta de cassino">
-      <canvas id="rouletteCanvas" width="280" height="280"></canvas>
-    </div>
-    <button id="spinBtn" aria-label="Botão para girar a roleta">Girar Roleta!</button>
-    <div id="casinoMessage" aria-live="polite" aria-atomic="true">
-      Clique em "Girar Roleta!" para tentar a sorte.
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  Desenvolvido com 🤓☝️ por você e seu assistente doido! Divirta-se!
-</footer>
+<canvas id="rouletteCanvas" width="280" height="280" style="border-radius:50%; background:#223366;"></canvas>
+<button id="spinBtn">Girar Roleta!</button>
+<div id="casinoMessage" style="margin-top:10px; font-weight:bold; color:#99ffff;"></div>
 
 <script>
-  // --- Jogo de plataforma ---
   (() => {
-    const canvas = document.getElementById('gameCanvas');
+    const canvas = document.getElementById('rouletteCanvas');
     const ctx = canvas.getContext('2d');
+    const spinBtn = document.getElementById('spinBtn');
+    const casinoMessage = document.getElementById('casinoMessage');
 
-    const gravity = 0.6;
-    const friction = 0.85;
-
-    // Jogador
-    const player = {
-      x: 50,
-      y: 0,
-      width: 40,
-      height: 60,
-      color: '#66ffff',
-      dx: 0,
-      dy: 0,
-      speed: 5,
-      jumping: false,
-      onGround: false,
-      score: 0
-    };
-
-    // Plataformas
-    const platforms = [
-      {x: 0, y: 300, width: 540, height: 20},
-      {x: 150, y: 230, width: 120, height: 15},
-      {x: 320, y: 180, width: 100, height: 15},
-      {x: 450, y: 120, width: 70, height: 15},
-      {x: 100, y: 120, width: 80, height: 15}
+    const sectors = [
+      {color: '#66ff66', label: 'R$ 10', value: 10},
+      {color: '#ffff66', label: 'R$ 20', value: 20},
+      {color: '#ff6666', label: 'Perde Tudo', value: 0},
+      {color: '#66ccff', label: 'R$ 5', value: 5},
+      {color: '#ff66ff', label: 'R$ 15', value: 15},
+      {color: '#cc66ff', label: 'Tente Novamente', value: -1}
     ];
 
-    // Moedas (coletáveis)
-    const coins = [
-      {x: 180, y: 190, radius: 8, collected: false},
-      {x: 350, y: 140, radius: 8, collected: false},
-      {x: 490, y: 80, radius: 8, collected: false},
-      {x: 130, y: 80, radius: 8, collected: false}
-    ];
+    let angle = 0;
+    let angularVelocity = 0;
+    let spinning = false;
 
-    // Controles
-    const keys = {
-      left: false,
-      right: false,
-      up: false
-    };
-
-    const scoreboard = document.getElementById('scoreboard');
-
-    function drawPlayer() {
-      ctx.fillStyle = player.color;
-      ctx.fillRect(player.x, player.y, player.width, player.height);
-    }
-
-    function drawPlatforms() {
-      ctx.fillStyle = '#5566ff';
-      platforms.forEach(p => {
-        ctx.fillRect(p.x, p.y, p.width, p.height);
-      });
-    }
-
-    function drawCoins() {
-      coins.forEach(c => {
-        if (!c.collected) {
-          ctx.beginPath();
-          ctx.fillStyle = '#ffd700';
-          ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.strokeStyle = '#b38f00';
-          ctx.stroke();
-        }
-      });
-    }
-
-    function updatePlayer() {
-      // Horizontal movement
-      if (keys.left) {
-        player.dx = -player.speed;
-      } else if (keys.right) {
-        player.dx = player.speed;
-      } else {
-        player.dx *= friction;
-        if (Math.abs(player.dx) < 0.1) player.dx = 0;
-      }
-
-      // Saltar
-      if (keys.up && !player.jumping) {
-        player.dy = -13;
-        player.jumping = true;
-        player.onGround = false;
-      }
-
-      player.dy += gravity;
-
-      player.x += player.dx;
-      player.y += player.dy;
-
-      // Limites da tela
-      if (player.x < 0) player.x = 0;
-      if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
-      if (player.y + player.height > canvas.height) {
-        player.y = canvas.height - player.height;
-        player.dy = 0;
-        player.jumping = false;
-        player.onGround = true;
-      }
-
-      // Colisão com plataformas
-      platforms.forEach(p => {
-        if (
-          player.x < p.x + p.width &&
-          player.x + player.width > p.x &&
-          player.y + player.height > p.y &&
-          player.y + player.height < p.y + p.height + 10 &&
-          player.dy >= 0
-        ) {
-          player.y = p.y - player.height;
-          player.dy = 0;
-          player.jumping = false;
-          player.onGround = true;
-        }
-      });
-
-      // Coletar moedas
-      coins.forEach(c => {
-        if (!c.collected) {
-          const distX = player.x + player.width / 2 - c.x;
-          const distY = player.y + player.height / 2 - c.y;
-          const dist = Math.sqrt(distX * distX + distY * distY);
-          if (dist < c.radius + player.width / 2) {
-            c.collected = true;
-            player.score++;
-            scoreboard.textContent = 'Pontuação: ' + player.score;
-            playCoinSound();
-          }
-        }
-      });
-    }
-
-    function clear() {
+    function drawRoulette() {
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      const radius = cx - 10;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const sectorAngle = (2 * Math.PI) / sectors.length;
+      sectors.forEach((sector, i) => {
+        const startAngle = angle + i * sectorAngle;
+        const endAngle = startAngle + sectorAngle;
+
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, startAngle, endAngle);
+        ctx.fillStyle = sector.color;
+        ctx.fill();
+        ctx.strokeStyle = '#222';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Texto
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(startAngle + sectorAngle / 2);
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#222';
+        ctx.font = 'bold 16px Arial';
+        ctx.fillText(sector.label, radius - 10, 5);
+        ctx.restore();
+      });
+
+      // Desenha o ponteiro (seta no topo)
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - radius + 5);
+      ctx.lineTo(cx - 15, cy - radius + 40);
+      ctx.lineTo(cx + 15, cy - radius + 40);
+      ctx.closePath();
+      ctx.fillStyle = '#ff4444';
+      ctx.fill();
+
+      // Círculo central
+      ctx.beginPath();
+      ctx.arc(cx, cy, 30, 0, 2 * Math.PI);
+      ctx.fillStyle = '#444466';
+      ctx.fill();
+      ctx.strokeStyle = '#222';
+      ctx.lineWidth = 3;
+      ctx.stroke();
     }
 
-    function gameLoop() {
-      clear();
-      updatePlayer();
-      drawPlatforms();
-      drawPlayer();
-      drawCoins();
-      requestAnimationFrame(gameLoop);
+    function animate() {
+      if (!spinning) return;
+
+      angle += angularVelocity;
+      angularVelocity *= 0.97; // fricção
+
+      if (angularVelocity < 0.002) {
+        angularVelocity = 0;
+        spinning = false;
+        angle %= 2 * Math.PI;
+        showResult();
+      } else {
+        requestAnimationFrame(animate);
+      }
+
+      drawRoulette();
     }
 
-    // Controles teclado
-    window.addEventListener('keydown', e => {
-      if (e.code === 'ArrowLeft') keys.left = true;
-      if (e.code === 'ArrowRight') keys.right = true;
-      if (e.code === 'Space' || e.code === 'ArrowUp') keys.up = true;
-    });
-    window.addEventListener('keyup', e => {
-      if (e.code === 'ArrowLeft') keys.left = false;
-      if (e.code === 'ArrowRight') keys.right = false;
-      if (e.code === 'Space' || e.code === 'ArrowUp') keys.up = false;
+    function showResult() {
+      const sectorAngle = (2 * Math.PI) / sectors.length;
+      // Ajustar o ângulo para ponteiro no topo (3pi/2)
+      const adjustedAngle = (3 * Math.PI / 2 - angle + 2 * Math.PI) % (2 * Math.PI);
+      const index = Math.floor(adjustedAngle / sectorAngle);
+      const winner = sectors[index];
+      let msg = "";
+      if (winner.value > 0) {
+        msg = `🎉 Parabéns! Você ganhou R$${winner.value}!`;
+      } else if (winner.value === 0) {
+        msg = "😵 Ops! Você perdeu tudo! Tente novamente!";
+      } else {
+        msg = "🤷‍♂️ Tente novamente, a sorte muda!";
+      }
+      casinoMessage.textContent = msg;
+    }
+
+    spinBtn.addEventListener('click', () => {
+      if (spinning) return;
+      angularVelocity = Math.random() * 0.3 + 0.3; // velocidade inicial
+      spinning = true;
+      casinoMessage.textContent = "Girando... 🎲";
+      animate();
     });
 
-    function playCoinSound() {
-      const ctxSnd = new (window.AudioContext || window.webkitAudioContext)();
-      const o = ctxSnd.createOscillator();
-      const g = ctxSnd.createGain();
-      o.type = 'triangle';
-      o.frequency.setValueAtTime(800, ctxSnd.currentTime);
-      g.gain.setValueAtTime(0.1, ctxSnd.currentTime);
-      o.connect(g);
-      g.connect(ctxSnd.destination);
-      o.start();
-      o.frequency.exponentialRampToValueAtTime(1500, ctxSnd.currentTime + 0.1);
-      g.gain.exponentialRampToValueAtTime(0.01, ctxSnd.currentTime + 0.1);
-      o.stop(ctx
+    drawRoulette();
+  })();
+</script>

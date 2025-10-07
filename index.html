@@ -1,35 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Página HTML</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Desafio Maluco 🎲</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f0f0f0;
+            background: linear-gradient(135deg, #ff0066, #6600ff);
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            min-height: 100vh;
+            margin: 0;
         }
         h1 {
-            color: #333366;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px black;
         }
-        p {
-            color: #555555;
+        button {
+            padding: 15px 25px;
+            margin: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background: #00ffcc;
+            color: #222;
+            box-shadow: 0 4px 8px #00cca8;
+            transition: transform 0.3s ease;
         }
-        a {
-            color: #0066cc;
-            text-decoration: none;
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px #00cca8;
         }
-        a:hover {
-            text-decoration: underline;
+        #message {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            min-height: 60px;
+            max-width: 600px;
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            user-select: none;
+        }
+        #inputBox {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            width: 200px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <h1>Olá, Mundo!</h1>
-    <p>Esta é uma página HTML simples criada para você.</p>
-    <p>Visite o <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a> para explorar mais projetos.</p>
+    <h1>🧩 O Desafio Maluco</h1>
+    <button id="btn1">Clique Aqui - Desafio 1</button>
+    <button id="btn2">Clique Aqui - Desafio 2</button>
+    <button id="btn3">Clique Aqui - Desafio 3</button>
+
+    <div id="message">Escolha um desafio para começar!</div>
+
+    <input type="text" id="inputBox" placeholder="Responda aqui" style="display:none"/>
+
+    <script>
+        const btn1 = document.getElementById('btn1');
+        const btn2 = document.getElementById('btn2');
+        const btn3 = document.getElementById('btn3');
+        const message = document.getElementById('message');
+        const inputBox = document.getElementById('inputBox');
+
+        // Pegadinha 1: Clicando no botão, ele muda de lugar
+        btn1.addEventListener('mouseenter', () => {
+            const x = Math.random() * (window.innerWidth - btn1.clientWidth);
+            const y = Math.random() * (window.innerHeight - btn1.clientHeight);
+            btn1.style.position = 'absolute';
+            btn1.style.left = x + 'px';
+            btn1.style.top = y + 'px';
+            message.textContent = "Você tentou clicar, mas eu me escondi! Tente novamente...";
+        });
+
+        btn1.addEventListener('click', () => {
+            alert('Você conseguiu me pegar! Mas só um pouco...');
+            message.textContent = "Essa foi fácil demais, vamos para o próximo desafio!";
+            resetBtn1();
+        });
+
+        function resetBtn1() {
+            btn1.style.position = '';
+            btn1.style.left = '';
+            btn1.style.top = '';
+        }
+
+        // Desafio 2: Pergunta com resposta oculta
+        btn2.addEventListener('click', () => {
+            message.textContent = "Qual é a palavra secreta? Dica: é 'chatgpt' invertido.";
+            inputBox.style.display = 'block';
+            inputBox.value = '';
+            inputBox.focus();
+
+            inputBox.onkeydown = (e) => {
+                if (e.key === 'Enter') {
+                    const resposta = inputBox.value.toLowerCase().trim();
+                    if (resposta === 'tpgtahc') {
+                        message.textContent = "Parabéns! Você acertou a palavra secreta! Próximo desafio...";
+                        inputBox.style.display = 'none';
+                    } else {
+                        message.textContent = "Não é isso... Tente novamente!";
+                    }
+                }
+            }
+        });
+
+        // Desafio 3: O desafio do "clicar no botão sem clicar"
+        btn3.addEventListener('click', () => {
+            message.textContent = "Não clique neste botão... ou clique? Decida rápido!";
+            let clicked = false;
+            let timer = setTimeout(() => {
+                if (!clicked) {
+                    message.textContent = "Você não clicou! Mas já clicou... confuso, né?";
+                    alert("Pegadinha! Você já clicou quando pensou em clicar.");
+                }
+            }, 5000);
+
+            btn3.onclick = () => {
+                clicked = true;
+                clearTimeout(timer);
+                message.textContent = "Você clicou! Parabéns por tomar a decisão! Isso é um desafio? Talvez...";
+                btn3.onclick = null; // desativa pra não repetir
+            };
+        });
+
+        // Pegadinha extra: tecla secreta para mensagem especial
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'z' && e.ctrlKey) {
+                alert('Você descobriu o segredo! Código maluco ativado!');
+                message.textContent = "🎉 Você desbloqueou a mensagem secreta: Nunca confie em tudo que vê na internet! 🎉";
+            }
+        });
+    </script>
 
 </body>
 </html>

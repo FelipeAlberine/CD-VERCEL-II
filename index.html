@@ -207,19 +207,6 @@
     <div id="casinoMessage" class="message" aria-live="polite" aria-atomic="true">Clique em "Girar Roleta!" para começar a jogar.</div>
   </section>
 
-  <!-- Seção de desafios e interatividade -->
-  <section id="challengeSection" aria-label="Desafios e interatividade">
-    <h2>⚡ Desafios & Pegadinhas</h2>
-    <button id="btn1">🤓☝️ Botão Fugitivo</button>
-    <button id="btn2">🤓☝️ Palavra Secreta</button>
-    <button id="btn3">🤓☝️ O Não Botão</button>
-    <button id="btn4">🤓☝️ Botão Dançante</button>
-    <button id="btn5">🤓☝️ Quiz Maluco</button>
-
-    <input type="text" id="inputBox" placeholder="Digite sua resposta aqui..." style="display:none" aria-label="Caixa de entrada para respostas" />
-
-    <div id="challengeMessage" class="message" aria-live="polite" aria-atomic="true">Escolha um desafio para começar... 🤓☝️</div>
-  </section>
 </main>
 
 <footer>
@@ -227,7 +214,7 @@
 </footer>
 
 <script>
-  // --- Som ambiente toggle ---
+  // Som ambiente toggle
   const soundToggle = document.getElementById('soundToggle');
   let soundOn = false;
   let audioCtx, oscillator;
@@ -254,7 +241,6 @@
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Jogo configurações
     const gravity = 0.6;
     const friction = 0.85;
 
@@ -275,4 +261,32 @@
 
     // Plataformas
     const platforms = [
-      {x: 0, y: 300, width
+      {x: 0, y: 300, width: 540, height: 20},
+      {x: 150, y: 230, width: 120, height: 15},
+      {x: 320, y: 180, width: 100, height: 15},
+      {x: 450, y: 120, width: 70, height: 15},
+      {x: 100, y: 120, width: 80, height: 15}
+    ];
+
+    // Moedas (coletáveis)
+    const coins = [
+      {x: 180, y: 190, radius: 8, collected: false},
+      {x: 350, y: 140, radius: 8, collected: false},
+      {x: 490, y: 80, radius: 8, collected: false},
+      {x: 130, y: 80, radius: 8, collected: false}
+    ];
+
+    // Controles
+    const keys = {
+      left: false,
+      right: false,
+      up: false
+    };
+
+    // Pontuação e scoreboard
+    const scoreboard = document.getElementById('scoreboard');
+
+    // Desenha jogador
+    function drawPlayer() {
+      ctx.fillStyle = player.color;
+      ctx.fillRect(player.x, player.y,
